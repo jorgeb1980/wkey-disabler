@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>windows</groupId>
+    <artifactId>wkey-disabler</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cli.library.version>1.9.1-SNAPSHOT</cli.library.version>
+        <java.compiler.version>21</java.compiler.version>
+        <shell.commands.library.version>1.7.1</shell.commands.library.version>
+    </properties>
+    <build>
+        <finalName>redist/libs/wkey-disabler-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>cli-library</groupId>
+                <artifactId>cli-maven-plugin</artifactId>
+                <version>${cli.library.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-files</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/redist/libs</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>${java.compiler.version}</source>
+                        <target>${java.compiler.version}</target>
+                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.14.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.14.0</version>
+        </dependency>
+        <!-- https://github.com/jorgeb1980/lib-shell-commands -->
+        <dependency>
+            <groupId>shell</groupId>
+            <artifactId>command-launcher</artifactId>
+            <version>${shell.commands.library.version}</version>
+        </dependency>
+        <!-- https://github.com/jorgeb1980/lib-cli-base -->
+        <dependency>
+            <groupId>cli-library</groupId>
+            <artifactId>cli-command-library</artifactId>
+            <version>${cli.library.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

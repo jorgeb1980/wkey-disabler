@@ -10,12 +10,12 @@ public enum SystemTrayIcon {
 
     ICON;
 
-    private TrayIcon icon = null;
-
     public void load() {
         if (SystemTray.isSupported()) {
-            try (var is = SystemTrayIcon.class.getClassLoader().getResourceAsStream("—Pngtree—black iron lock icon_4438288.png")) {
-                icon = new TrayIcon(
+            try (var is = SystemTrayIcon.class.getClassLoader().
+                getResourceAsStream("—Pngtree—black iron lock icon_4438288.png")
+            ) {
+                TrayIcon icon = new TrayIcon(
                     imageSize(
                         ImageIO.read(is),
                         BufferedImage.TYPE_INT_ARGB,
